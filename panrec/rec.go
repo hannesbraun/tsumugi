@@ -1,6 +1,7 @@
 package panrec
 
 import (
+	"bytes"
 	"encoding/binary"
 	"os"
 )
@@ -25,9 +26,9 @@ func Read(path string) Metadata {
 	}
 
 	timestamp := binary.BigEndian.Uint32(file[0x08:0x0c])
-	title := string(file[TitleOffset : TitleOffset+TitleLength])
-	channel := string(file[0x12c:0x150])
-	language := string(file[0x170:0x173])
+	title := string(bytes.Trim(file[TitleOffset:TitleOffset+TitleLength], "\x00"))
+	channel := string(bytes.Trim(file[0x12c:0x150], "\x00"))
+	language := string(bytes.Trim(file[0x170:0x173], "\x00"))
 	viewed := file[0x173] == 0
 
 	return Metadata{
