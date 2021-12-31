@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"flag"
 	"fmt"
 	"github.com/hannesbraun/tsumugi/panrec"
 	"os"
@@ -12,6 +13,11 @@ import (
 const VERSION = "0.9.0"
 
 func main() {
+	var readOnly bool
+	flag.BoolVar(&readOnly, "readonly", false, "don't ask for a new title")
+	flag.Parse()
+	flag.Args()
+
 	fmt.Println("Tsumugi", VERSION)
 	datFiles := os.Args[1:]
 	stdin := bufio.NewReader(os.Stdin)
@@ -21,8 +27,7 @@ func main() {
 			continue
 		}
 
-		// TODO readonly flag
-		updateDat(path, stdin, false)
+		updateDat(path, stdin, readOnly)
 	}
 }
 
