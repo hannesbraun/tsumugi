@@ -16,10 +16,9 @@ func main() {
 	var readOnly bool
 	flag.BoolVar(&readOnly, "readonly", false, "don't ask for a new title")
 	flag.Parse()
-	flag.Args()
 
 	fmt.Println("Tsumugi", VERSION)
-	datFiles := os.Args[1:]
+	datFiles := flag.Args()
 	stdin := bufio.NewReader(os.Stdin)
 
 	for _, path := range datFiles {
