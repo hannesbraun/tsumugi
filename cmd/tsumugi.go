@@ -10,7 +10,7 @@ import (
 	"time"
 )
 
-const VERSION = "0.9.1"
+const VERSION = "0.9.2"
 
 func main() {
 	var readOnly bool
